@@ -12,7 +12,6 @@ A super simple website application that allows students to view and sign up for 
   - Time (Before School, After School, Weekend)
   - Difficulty level (Beginner, Intermediate, Advanced, All Levels)
 - Search activities by name, description, or schedule
-=======
 - Share activities with friends via:
   - Facebook
   - Twitter/X
