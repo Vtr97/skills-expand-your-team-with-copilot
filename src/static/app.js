@@ -587,6 +587,23 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         </ul>
       </div>
+      <div class="share-buttons">
+        <button class="share-button share-facebook" data-activity="${name}" title="Share on Facebook" aria-label="Share on Facebook">
+          <span class="share-icon">📘</span>
+        </button>
+        <button class="share-button share-twitter" data-activity="${name}" title="Share on Twitter/X" aria-label="Share on Twitter/X">
+          <span class="share-icon">🐦</span>
+        </button>
+        <button class="share-button share-whatsapp" data-activity="${name}" title="Share on WhatsApp" aria-label="Share on WhatsApp">
+          <span class="share-icon">💬</span>
+        </button>
+        <button class="share-button share-email" data-activity="${name}" title="Share via Email" aria-label="Share via Email">
+          <span class="share-icon">✉️</span>
+        </button>
+        <button class="share-button share-copy" data-activity="${name}" title="Copy Link" aria-label="Copy link to clipboard">
+          <span class="share-icon">🔗</span>
+        </button>
+      </div>
       <div class="activity-card-actions">
         ${
           currentUser
@@ -621,6 +638,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+
+    // Add click handlers for share buttons
+    const shareButtons = activityCard.querySelectorAll(".share-button");
+    shareButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        const activityName = button.dataset.activity;
+        handleShare(button.classList, activityName, details);
+      });
+    });
 
     activitiesList.appendChild(activityCard);
   }
@@ -889,6 +916,49 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error signing up:", error);
     }
   });
+
+  // Handle social sharing
+  function handleShare(classList, activityName, details) {
+    const formattedSchedule = formatSchedule(details);
+    // Truncate description if too long for sharing
+    const description = details.description.length > 100 
+      ? details.description.substring(0, 100) + '...' 
+      : details.description;
+    const shareText = `Check out ${activityName} at Mergington High School! ${description} - Schedule: ${formattedSchedule}`;
+    const shareUrl = window.location.href;
+    
+    if (classList.contains("share-facebook")) {
+      // Facebook sharing
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+      window.open(facebookUrl, "_blank", "width=600,height=400");
+    } else if (classList.contains("share-twitter")) {
+      // Twitter/X sharing
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(twitterUrl, "_blank", "width=600,height=400");
+    } else if (classList.contains("share-whatsapp")) {
+      // WhatsApp sharing
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + " " + shareUrl)}`;
+      window.open(whatsappUrl, "_blank");
+    } else if (classList.contains("share-email")) {
+      // Email sharing
+      const subject = `Check out ${activityName} at Mergington High School`;
+      const body = `${shareText}\n\nLearn more: ${shareUrl}`;
+      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    } else if (classList.contains("share-copy")) {
+      // Copy link to clipboard with fallback
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showMessage("Link copied to clipboard!", "success");
+        }).catch((err) => {
+          console.error("Failed to copy link:", err);
+          showMessage("Failed to copy link. Please try again.", "error");
+        });
+      } else {
+        // Fallback for browsers without clipboard API
+        showMessage("Link: " + shareUrl, "info");
+      }
+    }
+  }
 
   // Expose filter functions to window for future UI control
   window.activityFilters = {
