@@ -556,7 +556,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="share-button share-facebook" data-activity="${name}" title="Share on Facebook" aria-label="Share on Facebook">
           <span class="share-icon">📘</span>
         </button>
-        <button class="share-button share-twitter" data-activity="${name}" title="Share on Twitter/X" aria-label="Share on Twitter">
+        <button class="share-button share-twitter" data-activity="${name}" title="Share on Twitter/X" aria-label="Share on Twitter/X">
           <span class="share-icon">🐦</span>
         </button>
         <button class="share-button share-whatsapp" data-activity="${name}" title="Share on WhatsApp" aria-label="Share on WhatsApp">
