@@ -6,6 +6,13 @@ A super simple website application that allows students to view and sign up for 
 
 - View all available extracurricular activities
 - Sign up for activities
+- Filter activities by:
+  - Category (Sports, Arts, Academic, Community, Technology)
+  - Day of the week
+  - Time (Before School, After School, Weekend)
+  - Difficulty level (Beginner, Intermediate, Advanced, All Levels)
+- Search activities by name, description, or schedule
+=======
 - Share activities with friends via:
   - Facebook
   - Twitter/X

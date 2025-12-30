@@ -61,7 +61,7 @@ These dependencies will be installed when you run `pip install -r src/requiremen
 
 | Method | Endpoint                                                          | Description                                                         |
 | ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
-| GET    | `/activities`                                                     | Get all activities with their details and current participant count |
+| GET    | `/activities`                                                     | Get all activities with their details and current participant count. Supports optional query parameters: `day` (filter by day), `start_time` and `end_time` (filter by time range), `difficulty` (filter by difficulty level: 'Beginner', 'Intermediate', 'Advanced', or 'All' for activities with no difficulty specified) |
 | POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
 
 > [!IMPORTANT]
